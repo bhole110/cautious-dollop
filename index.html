@@ -1,0 +1,384 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title></title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* --- THEME VARIABLES (PREMIUM BLUE/PURPLE) --- */
+        :root {
+            --bg-dark: #0f172a; /* Slate Dark Blue */
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --primary-grad: linear-gradient(135deg, #00c6ff, #0072ff); /* Cyber Blue */
+            --accent-glow: #00c6ff;
+            --text-white: #ffffff;
+            --text-gray: #94a3b8;
+            --gold: #fbbf24;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            /* Grid Background Effect */
+            background-image: 
+                linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)),
+                repeating-linear-gradient(transparent, transparent 50px, rgba(0, 198, 255, 0.05) 50px, rgba(0, 198, 255, 0.05) 51px),
+                repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(0, 198, 255, 0.05) 50px, rgba(0, 198, 255, 0.05) 51px);
+            color: var(--text-white);
+            text-align: center;
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding-bottom: 20px;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        /* --- BACKGROUND FLOATING ELEMENTS (Corrected) --- */
+        /* Ye ab container ke bahar hain taaki button me na phasein */
+        .bg-floater {
+            position: fixed;
+            z-index: -1; /* Buttons ke peeche rahenge */
+            font-size: 30px;
+            opacity: 0.6;
+            animation: float-bg 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
+        }
+        /* 4 KONE (CORNERS) */
+        .f1 { top: 10%; left: 5%; animation-delay: 0s; }
+        .f2 { top: 15%; right: 5%; animation-delay: 2s; font-size: 25px; }
+        .f3 { bottom: 20%; left: 5%; animation-delay: 1s; font-size: 28px; }
+        .f4 { bottom: 25%; right: 8%; animation-delay: 3s; }
+
+        @keyframes float-bg {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* --- MARQUEE --- */
+        .marquee-strip {
+            background: linear-gradient(90deg, #ff0055, #ff0000);
+            width: 100%;
+            padding: 8px 0;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+            position: relative;
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            font-weight: 800;
+            font-size: 11px;
+            color: white;
+            text-transform: uppercase;
+            white-space: nowrap;
+            animation: scroll 15s linear infinite;
+        }
+        @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        .container {
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- PROFILE --- */
+        .profile-box {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 20px auto;
+        }
+        .profile-glow {
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00c6ff, #0072ff);
+            filter: blur(8px);
+            animation: pulse-ring 2s infinite;
+        }
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid #1e293b;
+            position: relative;
+            object-fit: cover;
+            background: #000;
+        }
+        .badge {
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0072ff;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 800;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            white-space: nowrap;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        .tag-pill {
+            background: rgba(0, 198, 255, 0.15);
+            color: #00c6ff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 10px;
+            border: 1px solid rgba(0, 198, 255, 0.3);
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 900;
+            margin: 5px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #ffffff, #00c6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .desc {
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        /* --- STATS --- */
+        .stats-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .stat-item {
+            background: var(--card-bg);
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+        }
+        .s-val { display: block; font-size: 16px; font-weight: 800; color: white; }
+        .s-lbl { font-size: 9px; color: var(--text-gray); text-transform: uppercase; margin-top: 3px; }
+
+        /* --- BUTTONS --- */
+        .btn-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn-blue {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            background: var(--primary-grad);
+            color: white;
+            font-size: 18px;
+            font-weight: 800;
+            padding: 18px;
+            border-radius: 15px; /* Thoda square shape modern lagta hai */
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(0, 114, 255, 0.4);
+            transition: transform 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        /* Button Shine Effect */
+        .btn-blue::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.429), transparent);
+            animation: shine 3s infinite;
+        }
+        
+        .btn-blue:active { transform: scale(0.97); }
+
+        .middle-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--text-gray);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .middle-label::before, .middle-label::after {
+            content: ''; height: 1px; width: 40px; background: rgba(255,255,255,0.1);
+        }
+        /* --- AGENCY BRANDING --- */
+.marketing-badge {
+    margin-top: 15px;
+    font-size: 10px;
+    color: #475569; /* Thoda dark grey taaki distract na kare */
+    
+    letter-spacing: 1px;
+    padding-bottom: 20px; /* Neeche thodi jagah */
+}
+
+.marketing-badge span {
+    color: #00c6ff; /* Neon Blue taaki click karne ka mann kare */
+    text-decoration: none;
+    font-weight: 800;
+    transition: 0.3s;
+}
+
+.marketing-badge span:hover {
+    text-shadow: 0 0 10px rgba(0, 198, 255, 0.6);
+    color: #fff;
+}
+
+        /* --- TIMER --- */
+        .timer-area {
+            margin-top: 40px;
+        }
+        .timer-title { font-size: 10px; color: var(--text-gray); text-transform: uppercase; margin-bottom: 5px; }
+        #countdown {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent-glow);
+            text-shadow: 0 0 15px rgba(0, 198, 255, 0.4);
+        }
+
+        .footer-note { font-size: 10px; color: #475569; margin-top: 40px; }
+
+        @keyframes shine { 0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; } }
+        @keyframes pulse-ring { 0% { opacity: 0.8; } 50% { opacity: 0.4; } 100% { opacity: 0.8; } }
+    </style>
+    <!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '860435979930809');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=860435979930809&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body oncontextmenu="return false;">
+
+    <div class="bg-floater f1">💰</div>
+    <div class="bg-floater f2">✨</div>
+    <div class="bg-floater f3">🚀</div>
+    <div class="bg-floater f4">💎</div>
+
+    <div class="marquee-strip">
+        <div class="marquee-content">
+            ⚠️ WARNING: OFFER ENDING SOON! &nbsp;&nbsp;&nbsp; 💎 95% ACCURACY SIGNALS 💎 &nbsp;&nbsp;&nbsp; 🚀 JOIN NOW!
+        </div>
+    </div>
+
+    <div class="container">
+        
+        <div class="profile-box">
+            <div class="profile-glow"></div>
+            <img src="logo.jpg" alt="Admin" class="profile-pic">
+            <div class="badge">TELEGRAM</div>
+        </div>
+
+        <div class="tag-pill">✨ NUMBER SURESHOT</div>
+        
+        <h1 class="gradient-text">JERRY OFFICIAL</h1>
+        <p class="desc">Join the fastest growing trading community and start making profit.</p>
+
+        <div class="stats-row">
+            <div class="stat-item">
+                <span class="s-val">10K+</span>
+                <span class="s-lbl">Traders</span>
+            </div>
+            <div class="stat-item">
+                <span class="s-val" style="color: #00ff88;">95%</span>
+                <span class="s-lbl">Accuracy</span>
+            </div>
+            <div class="stat-item">
+                <span class="s-val" style="color: #fbbf24;">VIP</span>
+                <span class="s-lbl">Status</span>
+            </div>
+        </div>
+
+        <div class="btn-wrapper">
+            <a href="https://t.me/+jysRGM838XBiOTRl" class="btn-blue telegram-link">
+                JOIN NOW
+            </a>
+
+            <div class="middle-label">Join Telegram</div>
+
+            <a href="https://t.me/+jysRGM838XBiOTRl" class="btn-blue telegram-link">
+                JOIN NOW
+            </a>
+        </div>
+
+        <div class="timer-area">
+            <div class="timer-title">Link Expires In:</div>
+            <div id="countdown">01:00</div>
+        </div>
+
+        <div class="marketing-badge">
+            ⚡MARKETED BY <span>TG @bholenotop</span> ⚡
+        </div>
+
+        <div class="footer-note">
+            <a href="https://t.me/+jysRGM838XBiOTRl" style="text-decoration: none; font-size: 10px; color: #475569; margin-top: 40px;">Disclaimer: Trading involves risk. Educational purpose only.</a>
+        </div>
+        
+    </div>
+
+    <script>
+    
+        const TELEGRAM_URL = "https://t.me/+jysRGM838XBiOTRl"; 
+        const TIME_LIMIT = 60; 
+
+        document.querySelectorAll('.telegram-link').forEach(a => a.href = 'https://t.me/+jysRGM838XBiOTRl');
+        let time = TIME_LIMIT;
+        const timerEl = document.getElementById('countdown');
+
+        setInterval(() => {
+            let m = Math.floor(time / 60);
+            let s = time % 60;
+            s = s < 10 ? '0' + s : s;
+            timerEl.textContent = `0${m}:${s}`;
+            time--;
+            
+            if (time < 0) {
+                time = 0;
+                window.location.href = 'https://t.me/+jysRGM838XBiOTRl';
+            }
+        }, 1000);
+
+        // Security
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.onkeydown = e => {
+            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73) || (e.ctrlKey && e.keyCode == 85)) return false;
+        };
+    </script>
+</body>
+</html>
